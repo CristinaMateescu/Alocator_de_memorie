@@ -1,4 +1,4 @@
-Tema2-programarea calculatoarelor: Alocator de memorie
+Alocator de memorie
 
 Se declara 2 variabile globale :
 	arena_size (dimensiunea arenei)
