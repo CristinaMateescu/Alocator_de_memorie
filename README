@@ -1,0 +1,56 @@
+Tema2-programarea calculatoarelor: Alocator de memorie
+
+Se declara 2 variabile globale :
+	arena_size (dimensiunea arenei)
+	arena (pointer catre arena)
+
+INITIALIZE :
+	functia INITIALIZE aloca size octeti folosind calloc (pentru ca octetii sa fie initializati cu 0)
+			   returneaza pointerul catre arena
+	In schelet, se apeleaza functia INITIALIZE, se seteaza indicele primului bloc : index_bloc0 pe 0 si se actualizeaza dimensiunea arenei (arena_size)
+
+FINALIZE :
+	functia FINALIZE elibereaza memoria alocata, folosind free
+	si seteaza pointerul arena pe NULL
+	In schelet, se apeleaza FINALIZE si se reseteaza pe 0 cele 2 variabile : index_bloc0 (indexul primului bloc) si
+	    ok (are valoarea 0 daca nu exista niciun bloc in arena
+		are valoarea 1 daca exista macar un bloc in arena)
+
+DUMP: 
+	in functia DUMP, se parcurge arena folosind un "i", ca indice
+	se afiseaza octet cu octet dupa urmatoarele cazuri
+		daca sunt la inceputul liniei, afisez indicele in format hexa cu 8 cifre
+				 	  apoi afisez un tab
+					  apoi afisez primul octet in formatul cerut
+		daca sunt la finalul liniei,   afisez octetul impreuna cu un new line
+		in restul cazurilor afisez octetul si in functie de pozitia lui, afisez un spatiu, new line sau 2 spatii
+	In schelet se apeleaza DUMP
+
+ALLOC:
+	
+	in functie se folosesc de mai multe ori 2 variabile auxiliare :indice, index, indice puncteaza catre blocul curent iar index reprezinta indexul sau 
+	functia se imparte in 4 cazuri:
+		cazul 1: daca nu exista niciun bloc in arena
+			se actualizeaza cei 12 octeti de gestiune, fiecare pe cate 4 octeti ( se foloseste castul pointerului void, in uint32_t)
+		        se actualizeaza ok pe 1 (exista un bloc)
+			se afiseaza indexul portiunii de date
+		cazul 2: daca exista minimum un bloc in arena, se verifica portiunea dinaintea lui
+			se seteaza cei 12 octeti de gestiune
+			se actualizeaza indexul primului bloc :index_bloc0
+			se actualizeaza blocul urmator, indexul corespunzator blocului dinaintea lui
+		cazul 3: caut intre blocuri 
+			se foloseste un while si cele 2 variabile auxiliare care sunt mereu actualizate la blocul urmator
+		cazul 4: caut dupa ultimul bloc
+	in final, daca nu am gasit loc, afisez 0
+
+FREE:
+	se imparte in 3 etape: actualizarea blocului anterior, verificare daca exista
+			       actualizarea blocului urmator, verificarea blocului anterior
+			       setare octeti pe 0
+
+FILL:
+	parcurg bloc cu bloc 
+	setez octetii la value, daca inca mai am de setat octeti, merg la blocul urmator
+	In schelet, apelez functia fill
+			
+
